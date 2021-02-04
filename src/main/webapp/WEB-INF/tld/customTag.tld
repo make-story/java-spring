@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+    
+    <tlib-version>0.0</tlib-version>
+    <!-- short-name: 태그라이브러리의 이름 //-->
+    <short-name>customTag</short-name>
+    <!-- uri: 실제 존재하는 URI를 적을 필요는 없지만, 태그라이브러리를 구분하는 ID값과 같으므로 유일해야 한다. //-->
+    <uri>http://makestory.net/tld/customTag</uri>
+    
+    <tag>
+    	<!-- name: 태그 이름, JSP에서 여기서 정의한 태그이름을 사용 //-->
+        <name>toSpan</name>
+        <!-- tag-class: 현재 태그에 대한 클래스를 패키지명까지 정의 //-->
+        <tag-class>com.example.demo.CustomTag</tag-class>
+        <!-- body-content: 태그 사용시 시작태그와 끝태그 안에 있는 내용부분을 어떻게 처리할지 명시 //-->
+        <body-content>scriptless</body-content>
+        <!-- attribute: 태그에서 사용할 속성에 대한 정의 //-->
+        <attribute>
+        	<!-- name: 속성명을 지정 (태그 핸들러 클래스의 멤버변수로 선언하고 자바빈 규약에 맞게 getter setter메서드를 작성해 주어야 동작) //-->
+            <name>color</name>
+            <!-- required: 속성 필수입력 여부 //-->
+            <required>true</required>
+            <!-- rtexprvalue: 속성에 스크립트릿 표현식을 사용할 수 있는지 여부를 지정 //-->
+            <rtexprvalue>true</rtexprvalue>
+            <!-- type: 속성의 타입 //-->
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>iterNum</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+    </tag>
+    
+<!--     새로운 태그를 추가할때에는 여러개의 <tag> 작성 가능 -->
+<!--     <tag> -->
+<!--         <name>changeSpan2</name> -->
+<!--         <tag-class>tag.CustomTag</tag-class> -->
+<!--         <body-content>scriptless</body-content> -->
+<!--     </tag> -->
+    
+</taglib> 

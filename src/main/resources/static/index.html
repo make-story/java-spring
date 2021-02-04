@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script> 
+$.ajax({
+	type: "GET",
+	url: "/valueTest", 
+	success: (data) => { 
+		console.log(data); 
+		$('#contents1').html(data); 
+	} 
+}); 
+$.ajax({ 
+	type: "GET", 
+	url: "/testValue", 
+	success: (data) => { 
+		console.log(data); 
+		$('#contents2').html(data); 
+	} 
+});
+</script>
+</head>
+<body>
+Index
+<div id="contents1"> </div>
+<div id="contents2"> </div>
+</body>
+</html>

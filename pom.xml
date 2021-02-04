@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>demo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>demo</name>
+	<description>Demo project for Spring Boot</description>
+
+	<!-- 
+	- Maven Project properties
+		ex) ${project.build.outputDirectory}
+
+	- Maven Settings properties
+		: settings.xml에 정의된 값 사용
+		ex) ${settings.*}
+
+	- Environment variable properties
+		ex) ${env.PATH}
+
+	- Java System Properties
+		ex) ${java.version}
+
+	- User-defined Properties
+		: pom.xml 내에 <properties> tag에 설정해서 사용하는 properties
+		ex)<properties><evn>local</env></properties>
+	-->
+	<properties>
+		<java.version>1.8</java.version>
+
+		<!-- 설정 프로퍼티 //-->
+		<environment>local</environment>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+		<maven.test.skip>false</maven.test.skip>		
+	
+		<!-- https://books.sonatype.com/mvnref-book/reference/resource-filtering-sect-properties.html //-->
+		<!-- https://stackoverflow.com/questions/21187934/how-to-inject-jenkins-environment-variable-into-maven-build // -->
+		<!-- 
+		<property environment="env" />
+		<property name="BUILD_NUMBER"  value="${env.BUILD_NUMBER}"/>
+		-->
+		<!-- mvn clean install -Dbuild.number=${BUILD_NUMBER} //-->
+		<build.number>SNAPSHOT</build.number>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		
+		<!-- webjar //-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		
+		<!-- tomcat 추가 //-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--  JSON 추가 //-->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/javax.faces/javax.faces-api -->
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>javax.faces-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- JSP : jasper,jstl을 의존성에 추가해야 JSP파일의 구동이 가능하다. -->
+		<dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <dependency> 
+        	<groupId>org.springframework.boot</groupId> 
+        	<artifactId>spring-boot-devtools</artifactId> 
+        </dependency>
+        
+        <!-- thymeleaf -->
+        <dependency> 
+        	<groupId>org.springframework.boot</groupId> 
+        	<artifactId>spring-boot-starter-thymeleaf</artifactId> 
+        </dependency>
+
+        
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.48</version>
+        </dependency>
+        
+        <!-- MariaDB --> 
+        <dependency> 
+        	<groupId>org.mariadb.jdbc</groupId> 
+        	<artifactId>mariadb-java-client</artifactId> 
+        </dependency>
+        
+        <!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+		<dependency> 
+			<groupId>org.mybatis.spring.boot</groupId> 
+			<artifactId>mybatis-spring-boot-starter</artifactId> 
+			<version>2.1.1</version> 
+		</dependency>
+
+		<!-- MyBatis-Spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<!--  spring-jdbc -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		<!-- spring-test -->
+		<!-- Spring-test는 스프링과 MyBatis가 정상적으로 연동되었는지를 확인하는 용도로 사용 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		<!-- commons-dbcp -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+	</dependencies>
+	
+	<!-- 개발환경에 따른 프로퍼티 설정 변경 //-->
+	<!-- dev/qa/stg/prd 또는 test/stage/production //-->
+	<!-- profile 사용은 -P 옵션을 사용한다. -->
+	<!-- mvn package -P development -->
+	<!-- clean package -Dmaven.test.skip=true -Pdev //-->
+	<profiles>
+		<!-- 
+		<profile>
+			<id>dev</id>
+			<properties>
+				<environment>dev</environment>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>qa</id>
+			<properties>
+				<environment>qa</environment>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>release</id>
+			<properties>
+				<environment>stg</environment>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		-->
+		<profile>
+			<id>local</id>
+			<properties>
+				<environment>test</environment>
+				<frontend.env>local</frontend.env>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<environment>test</environment>
+				<frontend.env>server</frontend.env>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>stage</id>
+			<properties>
+				<environment>stage</environment>
+				<frontend.env>server</frontend.env>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>production</id>
+			<properties>
+				<environment>production</environment>
+				<frontend.env>server</frontend.env>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<!-- ROOT.war 가 생성된다. -->
+        <finalName>ROOT</finalName>
+        
+        <!-- JAVA에서 properties 쓰기 //-->
+        <!-- 기본적으로 src/main/resources 디렉토리 하위에 properties 파일을 위치 //-->
+        <!-- 
+        이렇게 되면 resource내의 폴더 내 프로퍼티 파일에서 아래와 같이 변수를 쓸수가 있습니다. 
+        그러면 프로퍼티 파일에서 xml설정 등을 이용해서 자바에서 변수를 쓸수가 있습니다.
+        예를 들어, test.properties 파일 내부 
+        version=${pom.version}
+		build.date=${timestamp}
+        -->
+        <resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>	
+		
+		<!-- 플러그인 //-->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<!-- specify UTF-8, ISO-8859-1 or any other file encoding -->
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			
+			<!-- 빌드시 외부 파일 다운로드 플러그인 //-->
+			<!-- https://github.com/maven-download-plugin/maven-download-plugin // -->
+			<!-- <plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>download-maven-plugin</artifactId>
+				<version>1.3.0</version>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+						<configuration>
+							<url>http://url/to/some/file</url>
+							<outputFileName>foo.bar</outputFileName>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+			<plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>download-maven-plugin</artifactId>
+				<version>1.5.1</version>
+				<executions>
+					<execution>
+						<id>install-jbpm</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+						<configuration>
+							<url>http://downloads.sourceforge.net/project/jbpm/jBPM%203/jbpm-3.1.4/jbpm-3.1.4.zip</url>
+							<unpack>true</unpack>
+							<outputDirectory>${project.build.directory}/jbpm-3.1.4</outputDirectory>
+							<!--<md5>df65b5642f33676313ebe4d5b69a3fff</md5>-->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- package 시에 Source 코드를 포함 //-->
+			<!-- 기본jar명-sources.jar 파일이 추가로 하나 생성된다. (package 수행 및 install 수행 시) //-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			
+			<!-- .jar 만들기 //-->
+			<!-- jar 패키징된 파일을 실행하기 위해서 ManifestFile을 생성해주는 plugin //-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<!-- 제외할 경로 //-->
+					<!-- excludes>
+						<exclude>**/log4j.properties</exclude>
+					</excludes -->
+					<archive>
+						<manifest>
+							<!-- 
+							<classpathPrefix>dependency-jars/</classpathPrefix>
+							-->
+							<!--  메인 클래스를 지정한다. //-->
+							<!-- 
+							<mainClass>com.test.core.utils.App</mainClass>
+							-->
+							<!-- 클래스 패스(Class-Path 값)을 추가할지 여부를 지정한다. //-->
+							<addClasspath>true</addClasspath>
+							<!-- 확장 정보가 포함된다. 이것은 <dependencies>에 작성된 라이브러리 정보 를 내보내는 위한 것이다. //-->
+							<addExtensions>true</addExtensions>
+							<!-- Jar 패키지(Package)을 출력한다. //-->
+							<!-- 
+							<packageName>com.test</packageName>
+							-->
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<!--  .war 패키징 //-->
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId> 
+                <configuration>
+                	<!-- 
+                	Create a manifest
+					애플리케이션이 WAR ( <packaging>war</packaging>) 로 패키지 된 경우 
+					Maven War 플러그인에 매니페스트 파일을 생성 하도록 지시 할 수 있습니다. 
+					If your application is packaged as a WAR (<packaging>war</packaging>) you can instruct the Maven War plugin to create a manifest file. 
+					This is a META-INF/MANIFEST.MF file which we can pass along some meta information about a JAR or in this case, the WAR.
+					-->
+					<manifest>
+						<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+					</manifest>
+					<archive>
+						<manifestEntries>
+							<Specification-Title>${environment}</Specification-Title>
+							<Specification-Version>${project.version}</Specification-Version>
+							<Implementation-Version>${build.number}</Implementation-Version>
+						</manifestEntries>
+					</archive>
+				</configuration>
+            </plugin>
+            
+            <!-- https://vnthf.github.io/blog/Spring-Maven-Propertie-%EB%B3%80%EC%88%98-%EC%93%B0%EA%B8%B0/ //-->
+            <!-- systemProperty를 집어 넣어서 자바 코드에서접 직접 System.getProperty(“timestamp”); 와 같이 호출 하는 방법 //-->
+            <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- mainClass>${exec.main-class}</mainClass -->
+					<systemProperties>
+						<systemProperty>
+							<key>timestamp</key>
+							<value>${timestamp}</value>
+						</systemProperty>
+					</systemProperties>
+				</configuration>
+			</plugin>
+
+            <!-- plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<environmentVariables>
+						<jenkins.buildUrl>${env.BUILD_URL}</jenkins.buildUrl>
+					</environmentVariables>
+				</configuration>
+			</plugin -->
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- 기존 jar 에서 war 변경 //-->
+	<packaging>war</packaging>
+</project>
